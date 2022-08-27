@@ -73,19 +73,12 @@ public class BoardDaoImplTest {
     }
 
     @Test
-    public void insertTest() throws Exception {
+    public void insertTest() throws Exception{
         boardDao.deleteAll();
-        BoardDto boardDto = new BoardDto("no title", "no content", "asdf");
-        assertTrue(boardDao.insert(boardDto)==1);
-
-        boardDto = new BoardDto("no title", "no content", "asdf");
-        assertTrue(boardDao.insert(boardDto)==1);
-        assertTrue(boardDao.count()==2);
-
-        boardDao.deleteAll();
-        boardDto = new BoardDto("no title", "no content", "asdf");
-        assertTrue(boardDao.insert(boardDto)==1);
-        assertTrue(boardDao.count()==1);
+        for (int i=1;i<=220;i++){
+            BoardDto boardDto = new BoardDto("title"+i,"no content","asdf");
+            boardDao.insert(boardDto);
+        }
     }
 
     @Test

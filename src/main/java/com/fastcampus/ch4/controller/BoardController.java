@@ -6,10 +6,8 @@ import org.springframework.beans.factory.annotation.*;
 import org.springframework.stereotype.*;
 import org.springframework.ui.*;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.mvc.support.*;
 
 import javax.servlet.http.*;
-import java.time.*;
 import java.util.*;
 
 @Controller
@@ -27,12 +25,16 @@ public class BoardController {
         if (pageSize==null)pageSize=10;
 
         try {
+            int totalCnt = boardService.getCount();
+            PageHandler pageHandler = new PageHandler(totalCnt,page,pageSize);
+
             Map map = new HashMap();
             map.put("offset",(page-1)*pageSize);
             map.put("pageSize", pageSize);
 
            List<BoardDto> list  =  boardService.getPage(map);
            m.addAttribute("list", list);
+           m.addAttribute("ph",pageHandler);
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
